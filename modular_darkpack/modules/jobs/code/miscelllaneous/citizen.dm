@@ -12,8 +12,8 @@
 		/datum/job_department/citizen
 	)
 	job_flags = CITY_JOB_FLAGS
-	maximal_generation = 11
-	maximum_immortal_age = 100
+	maximal_generation = 8
+	maximum_immortal_age = 1000
 	minimum_masquerade = 0
 	alt_titles = list(
 		"Citizen",

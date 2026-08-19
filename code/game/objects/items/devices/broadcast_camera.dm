@@ -39,6 +39,7 @@
 	. = ..()
 
 	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
+	AddComponent(/datum/component/violation_observer, FALSE) //DARKPACK EDIT
 
 /obj/item/broadcast_camera/Destroy(force)
 	QDEL_NULL(internal_radio)
@@ -85,6 +86,10 @@
 	/// The carbon who wielded the camera, allegedly
 	var/mob/living/carbon/wielding_carbon = loc
 
+	//DARKPACK EDIT CAMERAS CAN BREACH MASQUERADE
+	var/datum/component/violation_observer/violation_component = src.GetComponent(/datum/component/violation_observer)
+	violation_component.toggle_area_of_effect(loc)	//Turns it on
+
 	// INTERNAL CAMERA
 	internal_camera = new(wielding_carbon) // Cameras for some reason do not work inside of obj's
 	internal_camera.internal_light = FALSE
@@ -108,6 +113,10 @@
 	update_icon_state()
 	QDEL_NULL(internal_camera)
 	QDEL_NULL(internal_radio)
+
+	//DARKPACK EDIT CAMERAS CAN BREACH MASQUERADE
+	var/datum/component/violation_observer/violation_component = src.GetComponent(/datum/component/violation_observer)
+	violation_component.toggle_area_of_effect()	//Turns it off
 
 	stop_broadcasting_network(camera_networks)
 

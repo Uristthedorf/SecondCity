@@ -119,6 +119,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/xray, 0)
 		network -= network_name
 		network += LOWER_TEXT(network_name)
 
+	AddComponent(/datum/component/violation_observer, FALSE)
+
 	SScameras.cameras += src
 
 	myarea = get_room_area()
@@ -126,6 +128,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/xray, 0)
 	if(camera_enabled)
 		SScameras.add_camera_to_chunk(src)
 		LAZYADD(myarea.cameras, src)
+
 #ifdef MAP_TEST
 		update_appearance()
 #else
@@ -358,6 +361,14 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/camera/xray, 0)
 
 /obj/machinery/camera/proc/toggle_cam(mob/user, displaymessage = TRUE)
 	camera_enabled = !camera_enabled
+
+	//DARKPACK EDIT CAMERAS CAN BREACH MASQUERADE
+	var/datum/component/violation_observer/violation_component = src.GetComponent(/datum/component/violation_observer)
+	if (camera_enabled)
+		violation_component.toggle_area_of_effect(src)	//Turns it on
+	else
+		violation_component.toggle_area_of_effect()	//Turns it off
+
 	if(can_use())
 		SScameras.add_camera_to_chunk(src)
 		if (isturf(loc))

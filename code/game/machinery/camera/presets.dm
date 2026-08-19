@@ -107,6 +107,17 @@
 	light_range = 10
 	start_active = TRUE
 
+//DARKPACK POLICE CAMERA, police camera that's meant to be unsabotagable. Meant to make PD more difficult to raid.
+/obj/machinery/camera/police
+	name = "police camera"
+	network = list("police")
+	use_power = NO_POWER_USE
+	resistance_flags = parent_type::resistance_flags | INDESTRUCTIBLE
+	start_active = TRUE
+
+/obj/machinery/camera/police/screwdriver_act(mob/user, obj/item/tool)
+	return
+
 ///The internal camera object for exosuits, applied by the camera upgrade
 /obj/machinery/camera/exosuit
 	c_tag = "Exosuit: unspecified"

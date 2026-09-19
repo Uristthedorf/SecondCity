@@ -16,13 +16,13 @@
 	if(fleeing)
 		to_chat(src, span_danger("FLEE."))
 		src.balloon_alert(src, "flee!")
-		type_str = "fleeing frenzy"
+		frenzy_type_str = "fleeing frenzy"
 		apply_status_effect(/datum/status_effect/frenzy/flee, target)
 	else
 		to_chat(src, span_bolddanger("FRENZY."))
 		src.balloon_alert(src, "frenzy!")
 		if(get_kindred_splat(src))
-			type_str = "hunger frenzy"
+			frenzy_type_str = "hunger frenzy"
 			apply_status_effect(/datum/status_effect/frenzy/vampire_hunger, target)
 		else
 			apply_status_effect(/datum/status_effect/frenzy, target)

@@ -19,6 +19,9 @@
 		if(HAS_TRAIT(owner, TRAIT_MASQUERADE_VIOLATING_EYES) && (iscarbon(owner) ? !(owner.obscured_slots & HIDEEYES) : TRUE))
 			SEND_SIGNAL(owner, COMSIG_MASQUERADE_VIOLATION)
 
+		if(owner.has_status_effect(/datum/status_effect/frenzy/vampire_hunger))
+			SEND_SIGNAL(owner, COMSIG_MASQUERADE_VIOLATION)	//If a vampire hunger frenzies in public and doesn't do anything masquerade breaching they are failRPing anyways.
+
 		COOLDOWN_START(src, check_masq_violating_cooldown, 1 TURNS)
 
 	return

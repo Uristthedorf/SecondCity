@@ -519,6 +519,9 @@
 	if(!istype(AM, accepted_magazine_type))
 		balloon_alert(user, "[AM.name] doesn't fit!")
 		return FALSE
+	if(HAS_TRAIT(user, TRAIT_IN_FRENZY) || HAS_TRAIT(user, TRAIT_ARCHAIC))	//DARKPACT EDIT ADD - ARCHAIC AND FRENZYING VAMPIRES CANNOT CHANGE MAGAZINES.
+		balloon_alert(user, "You don't know how to do this!")
+		return FALSE
 	if(user.transferItemToLoc(AM, src))
 		magazine = AM
 		if (display_message)
@@ -537,6 +540,9 @@
 
 ///Handles all the logic of magazine ejection, if tac_load is set that magazine will be tacloaded in the place of the old eject
 /obj/item/gun/ballistic/proc/eject_magazine(mob/user, display_message = TRUE, obj/item/ammo_box/magazine/tac_load = null)
+	if(HAS_TRAIT(user, TRAIT_IN_FRENZY) || HAS_TRAIT(user, TRAIT_ARCHAIC))	//DARKPACT EDIT ADD - ARCHAIC AND FRENZYING VAMPIRES CANNOT CHANGE MAGAZINES.
+		balloon_alert(user, "You don't know how to do this!")
+		return FALSE
 	if(bolt_type == BOLT_TYPE_OPEN)
 		chambered = null
 	if (magazine.ammo_count())

@@ -131,6 +131,9 @@
 
 /obj/item/smartphone/examine(mob/user)
 	. = ..()
+	if(HAS_TRAIT(user, TRAIT_ARCHAIC))
+		. += span_notice("You don't understand how this works.")
+		return
 	. += span_notice("[EXAMINE_HINT("Interact")] to look at the screen.")
 	. += span_notice("[EXAMINE_HINT("Alt-Click")] or [EXAMINE_HINT("Right-Click")] to toggle the screen.")
 	if(sim_card)
@@ -142,6 +145,9 @@
 
 /obj/item/smartphone/attack_self(mob/user, modifiers)
 	. = ..()
+	if(HAS_TRAIT(user, TRAIT_ARCHAIC))
+		balloon_alert(user, "You don't understand how this strange device works!")
+		return
 	if(!opened)
 		toggle_screen(user)
 	ui_interact(user)
@@ -154,6 +160,9 @@
 
 /obj/item/smartphone/item_ctrl_click(mob/user)
 	if(!user.is_holding(src))
+		return CLICK_ACTION_BLOCKING
+	if(HAS_TRAIT(user, TRAIT_ARCHAIC))
+		balloon_alert(user, "You don't understand how this strange device works!")
 		return CLICK_ACTION_BLOCKING
 	if(!sim_card)
 		balloon_alert(user, "no sim card!")
@@ -176,6 +185,9 @@
 	return CLICK_ACTION_BLOCKING
 
 /obj/item/smartphone/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(HAS_TRAIT(user, TRAIT_ARCHAIC))
+		balloon_alert(user, "You don't understand how this strange device works!")
+		return ITEM_INTERACT_BLOCKING
 	if(!istype(tool, /obj/item/sim_card))
 		return NONE
 	if(sim_card)

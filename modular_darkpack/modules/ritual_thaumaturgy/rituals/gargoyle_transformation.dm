@@ -69,6 +69,11 @@
 	if(!bodies || bodies.len < 1)
 		return
 
+	var/gargoyle_location = get_area_name(get_turf(src))
+	for(var/mob/kindred in GLOB.kindred_list)	//Lorewise all gargoyles in a half mile radius sense the creation of a new gargoyle and want to bond with them. This should make illegal gargoyle creation more obvious.
+		if(kindred.is_clan(/datum/subsplat/vampire_clan/gargoyle))
+			to_chat(kindred, span_boldannounce("You sense a new gargoyle has been born in [gargoyle_location]! You feel a strong compulsion to meet them and bond with them!"))
+
 	if(perfect_gargoyle)
 		// Create perfect gargoyle (2+ bodies) -- you'd have to frag two different kindred players to create a perfect gargoyle.
 		var/mob/living/basic/gargoyle/perfect/G = new /mob/living/basic/gargoyle/perfect(loc)
